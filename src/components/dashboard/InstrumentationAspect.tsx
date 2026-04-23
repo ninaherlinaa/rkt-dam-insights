@@ -96,7 +96,7 @@ const items: Instrument[] = [
 export const InstrumentationAspect = () => {
   const [active, setActive] = useState<Instrument | null>(null);
   const autoplay = useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
+    Autoplay({ delay: 2000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
 
   return (

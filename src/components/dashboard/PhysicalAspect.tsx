@@ -44,7 +44,7 @@ const getNilaiColor = (nilai: number) => {
 
 export const PhysicalAspect = () => {
   const autoplay = useRef(
-    Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })
+    Autoplay({ delay: 1800, stopOnInteraction: false, stopOnMouseEnter: true })
   );
 
   return (
