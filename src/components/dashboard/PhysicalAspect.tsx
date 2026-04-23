@@ -1,5 +1,12 @@
 import { Mountain } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import phys1 from "@/assets/phys-1.jpg";
 import phys2 from "@/assets/phys-2.jpg";
 import phys3 from "@/assets/phys-3.jpg";
@@ -8,24 +15,32 @@ import phys5 from "@/assets/phys-5.jpg";
 import phys6 from "@/assets/phys-6.jpg";
 import phys7 from "@/assets/phys-7.jpg";
 import phys8 from "@/assets/phys-8.jpg";
-import phys9 from "@/assets/phys-9.jpg";
 
-const images = [
-  { src: phys1, label: "Spillway Utama" },
-  { src: phys2, label: "Jalan Mercu Bendungan" },
-  { src: phys3, label: "Permukaan Waduk" },
-  { src: phys4, label: "Area Hilir" },
-  { src: phys5, label: "Menara Intake" },
-  { src: phys6, label: "Dinding Beton" },
-  { src: phys7, label: "Pintu Outlet" },
-  { src: phys8, label: "Vegetasi Sekitar" },
-  { src: phys9, label: "Akses & Keamanan" },
+interface Component {
+  src: string;
+  label: string;
+  bobot: number; // %
+  nilai: number; // 0-100
+}
+
+const components: Component[] = [
+  { src: phys1, label: "Tubuh Bendungan Utama", bobot: 20, nilai: 92 },
+  { src: phys2, label: "Bendungan Pelana", bobot: 15, nilai: 88 },
+  { src: phys3, label: "Bangunan Pengambilan", bobot: 12, nilai: 90 },
+  { src: phys4, label: "Bangunan Pelimpah", bobot: 15, nilai: 87 },
+  { src: phys5, label: "Pelimpah Darurat", bobot: 10, nilai: 85 },
+  { src: phys6, label: "Kondisi Waduk", bobot: 12, nilai: 89 },
+  { src: phys7, label: "Kondisi Sempadan & Greenbelt", bobot: 8, nilai: 84 },
+  { src: phys8, label: "Masyarakat Sekitar", bobot: 8, nilai: 86 },
 ];
 
-export const PhysicalAspect = () => {
-  // duplicate for seamless marquee
-  const loop = [...images, ...images];
+const getNilaiColor = (nilai: number) => {
+  if (nilai >= 90) return "text-success";
+  if (nilai >= 80) return "text-aspect-physical";
+  return "text-warning";
+};
 
+export const PhysicalAspect = () => {
   return (
     <section className="container mx-auto px-6 py-16">
       <SectionHeading
@@ -33,36 +48,59 @@ export const PhysicalAspect = () => {
         variant="physical"
         icon={Mountain}
         title="Aspek Fisik & Lingkungan"
-        subtitle="Dokumentasi kondisi fisik bendungan dan lingkungan sekitar."
+        subtitle="Dokumentasi kondisi fisik bendungan dan lingkungan sekitar. Geser untuk melihat semua komponen."
       />
 
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-muted/50 to-background border border-border/60 p-6 shadow-soft">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-        <div className="flex gap-5 animate-marquee pause-on-hover" style={{ width: "max-content" }}>
-          {loop.map((img, i) => (
-            <figure
-              key={i}
-              className="group relative w-72 shrink-0 overflow-hidden rounded-2xl shadow-elegant transition-smooth hover:scale-[1.03]"
-            >
-              <img
-                src={img.src}
-                alt={img.label}
-                className="h-56 w-full object-cover transition-smooth group-hover:scale-110"
-                loading="lazy"
-                width={1024}
-                height={768}
-              />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary/90 via-primary/60 to-transparent p-4">
-                <p className="text-primary-foreground font-semibold text-sm">{img.label}</p>
-                <p className="text-primary-foreground/70 text-xs mt-0.5">
-                  Foto #{(i % images.length) + 1}
-                </p>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+      <div className="rounded-3xl bg-gradient-to-br from-muted/50 to-background border border-border/60 p-6 md:p-8 shadow-soft">
+        <Carousel
+          opts={{ align: "start", loop: false, dragFree: true }}
+          className="w-full"
+        >
+          <CarouselContent className="-ml-4">
+            {components.map((c, i) => (
+              <CarouselItem
+                key={i}
+                className="pl-4 basis-[85%] sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+              >
+                <figure className="group relative overflow-hidden rounded-2xl shadow-elegant transition-smooth hover:scale-[1.02] bg-card border border-border/60">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={c.src}
+                      alt={c.label}
+                      className="h-56 w-full object-cover transition-smooth group-hover:scale-110"
+                      loading="lazy"
+                      width={1024}
+                      height={768}
+                    />
+                    <div className="absolute top-3 right-3 rounded-full bg-background/95 backdrop-blur px-3 py-1 text-xs font-bold text-aspect-physical shadow-soft border border-border/60">
+                      Bobot {c.bobot}%
+                    </div>
+                  </div>
+                  <figcaption className="p-4">
+                    <h3 className="font-bold text-foreground text-sm leading-snug min-h-[2.5rem]">
+                      {c.label}
+                    </h3>
+                    <div className="mt-3 pt-3 border-t border-border flex items-baseline justify-between">
+                      <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
+                        Nilai
+                      </span>
+                      <span className={`text-2xl font-bold ${getNilaiColor(c.nilai)}`}>
+                        {c.nilai}
+                      </span>
+                    </div>
+                  </figcaption>
+                </figure>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="hidden md:block">
+            <CarouselPrevious className="-left-4" />
+            <CarouselNext className="-right-4" />
+          </div>
+        </Carousel>
+        <p className="text-xs text-muted-foreground text-center mt-4 md:hidden">
+          ← Geser untuk melihat lebih banyak →
+        </p>
       </div>
     </section>
   );
