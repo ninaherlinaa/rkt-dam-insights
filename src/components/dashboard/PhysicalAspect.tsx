@@ -1,4 +1,6 @@
 import { Mountain } from "lucide-react";
+import { useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 import { SectionHeading } from "./SectionHeading";
 import {
   Carousel,
@@ -41,6 +43,10 @@ const getNilaiColor = (nilai: number) => {
 };
 
 export const PhysicalAspect = () => {
+  const autoplay = useRef(
+    Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
+
   return (
     <section className="container mx-auto px-6 py-16">
       <SectionHeading
@@ -48,12 +54,13 @@ export const PhysicalAspect = () => {
         variant="physical"
         icon={Mountain}
         title="Aspek Fisik & Lingkungan"
-        subtitle="Dokumentasi kondisi fisik bendungan dan lingkungan sekitar. Geser untuk melihat semua komponen."
+        subtitle="Dokumentasi kondisi fisik bendungan dan lingkungan sekitar. Berjalan otomatis — bisa juga digeser manual."
       />
 
       <div className="rounded-3xl bg-gradient-to-br from-muted/50 to-background border border-border/60 p-6 md:p-8 shadow-soft">
         <Carousel
-          opts={{ align: "start", loop: false, dragFree: true }}
+          opts={{ align: "start", loop: true, dragFree: true }}
+          plugins={[autoplay.current]}
           className="w-full"
         >
           <CarouselContent className="-ml-4">

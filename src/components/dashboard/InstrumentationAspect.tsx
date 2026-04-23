@@ -1,5 +1,6 @@
 import { Activity, Waves, CloudRain, Move, ArrowDownUp, Gauge, Droplets, AlertTriangle, Zap } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 import { SectionHeading } from "./SectionHeading";
 import {
   Dialog,
@@ -94,6 +95,9 @@ const items: Instrument[] = [
 
 export const InstrumentationAspect = () => {
   const [active, setActive] = useState<Instrument | null>(null);
+  const autoplay = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
 
   return (
     <section className="container mx-auto px-6 py-16">
@@ -102,12 +106,13 @@ export const InstrumentationAspect = () => {
         variant="instrumentation"
         icon={Activity}
         title="Aspek Instrumentasi & Inspeksi"
-        subtitle="Instrumen pemantauan kondisi struktural bendungan. Geser untuk melihat semua, klik kartu untuk detail."
+        subtitle="Instrumen pemantauan kondisi struktural bendungan. Berjalan otomatis — bisa digeser manual & klik untuk detail."
       />
 
       <div className="rounded-3xl bg-gradient-to-br from-muted/40 to-background border border-border/60 p-6 md:p-8 shadow-soft">
         <Carousel
-          opts={{ align: "start", loop: false, dragFree: true }}
+          opts={{ align: "start", loop: true, dragFree: true }}
+          plugins={[autoplay.current]}
           className="w-full"
         >
           <CarouselContent className="-ml-4">
