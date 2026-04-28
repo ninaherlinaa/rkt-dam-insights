@@ -9,16 +9,10 @@ interface SectionHeadingProps {
 }
 
 const variantMap = {
-  physical: { bg: "bg-[var(--gradient-physical)]", text: "text-aspect-physical" },
-  operational: { bg: "bg-[var(--gradient-operational)]", text: "text-aspect-operational" },
-  instrumentation: {
-    bg: "bg-[var(--gradient-instrumentation)]",
-    text: "text-aspect-instrumentation",
-  },
-  institutional: {
-    bg: "bg-[var(--gradient-institutional)]",
-    text: "text-aspect-institutional",
-  },
+  physical: { bg: "bg-aspect-physical/15", text: "text-aspect-physical", icon: "text-aspect-physical", ring: "ring-aspect-physical/30" },
+  operational: { bg: "bg-aspect-operational/15", text: "text-aspect-operational", icon: "text-aspect-operational", ring: "ring-aspect-operational/30" },
+  instrumentation: { bg: "bg-aspect-instrumentation/15", text: "text-aspect-instrumentation", icon: "text-aspect-instrumentation", ring: "ring-aspect-instrumentation/30" },
+  institutional: { bg: "bg-aspect-institutional/15", text: "text-aspect-institutional", icon: "text-aspect-institutional", ring: "ring-aspect-institutional/30" },
 };
 
 export const SectionHeading = ({
@@ -32,9 +26,9 @@ export const SectionHeading = ({
   return (
     <div className="flex items-start gap-4 mb-8">
       <div
-        className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${v.bg} shadow-elegant ring-1 ring-white/30`}
+        className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${v.bg} shadow-soft ring-2 ${v.ring}`}
       >
-        <Icon className="h-6 w-6 text-white" strokeWidth={2.4} />
+        <Icon className={`h-7 w-7 ${v.icon}`} strokeWidth={2.4} />
       </div>
       <div className="flex-1">
         <div className={`text-xs font-bold uppercase tracking-widest ${v.text} mb-1`}>
