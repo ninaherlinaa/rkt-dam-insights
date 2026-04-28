@@ -87,7 +87,7 @@ export const ScoreCards = () => {
                     {a.grade}
                   </span>
                 </div>
-                <p className="text-sm font-semibold text-foreground line-clamp-2 min-h-[2.5rem]">
+                <p className="text-base md:text-lg font-bold text-foreground line-clamp-2 min-h-[3rem]">
                   {a.title}
                 </p>
                 <div className="mt-1 flex items-baseline gap-1">
@@ -102,13 +102,13 @@ export const ScoreCards = () => {
                 </div>
 
                 {a.subs.length > 0 && (
-                  <div className="mt-3 pt-3 border-t border-border space-y-1.5">
+                  <div className="mt-3 pt-3 border-t border-border space-y-2">
                     {a.subs.map((s, i) => (
                       <div key={i} className="flex items-center justify-between gap-2">
-                        <span className="text-[11px] text-muted-foreground font-medium leading-tight">
+                        <span className="text-sm text-foreground/80 font-semibold leading-tight">
                           {s.label}
                         </span>
-                        <span className={`text-xs font-bold ${a.accent}`}>
+                        <span className={`text-base font-bold ${a.accent}`}>
                           {s.value.toFixed(2)}
                         </span>
                       </div>
