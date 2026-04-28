@@ -79,9 +79,9 @@ export const ScoreCards = () => {
               <div className="p-5 flex flex-col flex-1">
                 <div className="flex items-start justify-between mb-3">
                   <div
-                    className={`flex h-11 w-11 items-center justify-center rounded-xl ${a.gradient} shadow-soft ring-1 ring-white/30`}
+                    className={`flex h-11 w-11 items-center justify-center rounded-xl bg-background shadow-soft ring-2 ring-current ${a.accent}`}
                   >
-                    <Icon className="h-5 w-5 text-white" strokeWidth={2.4} />
+                    <Icon className={`h-5 w-5 ${a.accent}`} strokeWidth={2.4} />
                   </div>
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full ${a.accentBg} text-white`}>
                     {a.grade}
