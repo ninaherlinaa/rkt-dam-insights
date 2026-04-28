@@ -253,9 +253,9 @@ export const InstrumentationAspect = () => {
                   >
                     <div className="flex items-start justify-between mb-4">
                       <div className="relative">
-                        <div className="absolute inset-0 rounded-xl bg-aspect-instrumentation/30 animate-ripple" />
-                        <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--gradient-instrumentation)] shadow-soft ring-1 ring-white/30">
-                          <Icon className="h-5 w-5 text-white" strokeWidth={2.4} />
+                        <div className="absolute inset-0 rounded-xl bg-aspect-instrumentation/20 animate-ripple" />
+                        <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-background shadow-soft ring-2 ring-aspect-instrumentation">
+                          <Icon className="h-5 w-5 text-aspect-instrumentation" strokeWidth={2.4} />
                         </div>
                       </div>
                       <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-aspect-instrumentation text-white">
