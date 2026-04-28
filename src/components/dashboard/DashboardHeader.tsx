@@ -16,8 +16,8 @@ export const DashboardHeader = () => {
       </div>
 
       <div className="relative container mx-auto px-6 py-16 md:py-24">
-        <div className="flex items-center gap-2 text-primary-foreground/80 text-sm font-medium tracking-widest uppercase mb-4">
-          <Droplets className="h-4 w-4" />
+        <div className="flex items-center gap-2 text-white/90 text-sm font-medium tracking-widest uppercase mb-4">
+          <Droplets className="h-4 w-4 text-white" strokeWidth={2.4} />
           Direktorat Jenderal Sumber Daya Air
         </div>
         <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground leading-tight max-w-4xl">
