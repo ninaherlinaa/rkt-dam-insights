@@ -121,33 +121,34 @@ export const ScoreCards = () => {
         })}
 
         {/* Average score card */}
-        <Card className="relative overflow-hidden gradient-score border-0 shadow-elegant text-white">
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-white blur-3xl animate-float" />
+        <Card className="relative overflow-hidden gradient-score border-0 shadow-glow text-white lg:scale-105 ring-2 ring-white/40">
+          <div className="absolute inset-0 opacity-25">
+            <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-white blur-3xl animate-float" />
+            <div className="absolute bottom-0 left-0 h-32 w-32 rounded-full bg-white blur-3xl animate-float" />
           </div>
-          <div className="relative p-5 flex flex-col h-full">
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/25 backdrop-blur-sm ring-1 ring-white/40">
-                <Award className="h-5 w-5 text-white" strokeWidth={2.4} />
+          <div className="relative p-6 flex flex-col h-full">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/30 backdrop-blur-sm ring-2 ring-white/50 shadow-lg">
+                <Award className="h-7 w-7 text-white" strokeWidth={2.6} />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-white/25 text-white">
+              <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-white/30 text-white ring-1 ring-white/40">
                 Baik
               </span>
             </div>
-            <p className="text-sm font-semibold text-white/95">Rata-rata Skor Keseluruhan</p>
-            <div className="mt-1 flex items-baseline gap-1">
-              <span className="text-3xl font-bold">{average}</span>
-              <span className="text-sm text-white/85 font-medium">/100</span>
+            <p className="text-lg md:text-xl font-bold text-white">Rata-rata Skor Keseluruhan</p>
+            <div className="mt-2 flex items-baseline gap-1.5">
+              <span className="text-5xl font-extrabold drop-shadow-lg">{average}</span>
+              <span className="text-base text-white/90 font-semibold">/100</span>
             </div>
-            <div className="mt-2 h-1.5 w-full bg-white/20 rounded-full overflow-hidden">
+            <div className="mt-3 h-2 w-full bg-white/20 rounded-full overflow-hidden">
               <div
-                className="h-full bg-white rounded-full transition-all duration-1000"
+                className="h-full bg-white rounded-full transition-all duration-1000 shadow-glow"
                 style={{ width: `${average}%` }}
               />
             </div>
-            <div className="mt-auto pt-3 inline-flex items-center gap-1.5 rounded-full bg-white/20 backdrop-blur-sm px-3 py-1 self-start">
-              <div className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-              <span className="text-[10px] font-bold tracking-wider">SANGAT TERPELIHARA</span>
+            <div className="mt-auto pt-4 inline-flex items-center gap-2 rounded-full bg-white/25 backdrop-blur-sm px-4 py-1.5 self-start ring-1 ring-white/40">
+              <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
+              <span className="text-xs font-bold tracking-wider">SANGAT TERPELIHARA</span>
             </div>
           </div>
         </Card>
