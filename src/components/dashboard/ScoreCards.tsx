@@ -1,38 +1,64 @@
 import { Mountain, Settings2, Activity, Building2, Award } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
+interface SubPoint {
+  label: string;
+  value: number;
+}
+
 const aspects = [
   {
     key: "physical",
     title: "Fisik & Lingkungan",
-    score: 88,
+    score: 86.78,
+    grade: "Baik",
     icon: Mountain,
     gradient: "bg-[var(--gradient-physical)]",
     accent: "text-aspect-physical",
+    accentBg: "bg-aspect-physical",
+    subs: [
+      { label: "Kinerja Fisik", value: 60.92 },
+      { label: "Kinerja Lingkungan", value: 25.86 },
+    ] as SubPoint[],
   },
   {
     key: "operational",
     title: "Operasi & Pelayanan",
-    score: 91,
+    score: 84.16,
+    grade: "Baik",
     icon: Settings2,
     gradient: "bg-[var(--gradient-operational)]",
     accent: "text-aspect-operational",
+    accentBg: "bg-aspect-operational",
+    subs: [
+      { label: "Kinerja Operasi", value: 43.51 },
+      { label: "Kinerja Layanan", value: 40.65 },
+    ] as SubPoint[],
   },
   {
     key: "instrumentation",
-    title: "Instrumentasi & Inspeksi",
-    score: 85,
+    title: "Instrumentasi & Pemeriksaan",
+    score: 84.69,
+    grade: "Baik",
     icon: Activity,
     gradient: "bg-[var(--gradient-instrumentation)]",
     accent: "text-aspect-instrumentation",
+    accentBg: "bg-aspect-instrumentation",
+    subs: [
+      { label: "Kinerja Instrumentasi", value: 42.41 },
+      { label: "Kinerja Pemeriksaan", value: 42.28 },
+    ] as SubPoint[],
   },
   {
     key: "institutional",
     title: "Kelembagaan",
-    score: 89,
+    score: 82.48,
+    grade: "Baik",
     icon: Building2,
     gradient: "bg-[var(--gradient-institutional)]",
     accent: "text-aspect-institutional",
+    accentBg: "bg-aspect-institutional",
+    subs: [] as SubPoint[],
   },
 ];
 
@@ -47,60 +73,81 @@ export const ScoreCards = () => {
           return (
             <Card
               key={a.key}
-              className="group relative overflow-hidden gradient-card border-border/60 shadow-elegant hover:shadow-glow hover:-translate-y-1 transition-smooth"
+              className="group relative overflow-hidden gradient-card border-border/60 shadow-elegant hover:shadow-glow hover:-translate-y-1 transition-smooth flex flex-col"
             >
               <div className={`absolute top-0 left-0 right-0 h-1 ${a.gradient}`} />
-              <div className="p-5">
-                <div className="flex items-start justify-between mb-4">
+              <div className="p-5 flex flex-col flex-1">
+                <div className="flex items-start justify-between mb-3">
                   <div
-                    className={`flex h-11 w-11 items-center justify-center rounded-xl ${a.gradient} shadow-soft`}
+                    className={`flex h-11 w-11 items-center justify-center rounded-xl ${a.gradient} shadow-soft ring-1 ring-white/30`}
                   >
-                    <Icon className="h-5 w-5 text-primary-foreground" />
+                    <Icon className="h-5 w-5 text-white" strokeWidth={2.4} />
                   </div>
-                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Skor
+                  <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full ${a.accentBg} text-white`}>
+                    {a.grade}
                   </span>
                 </div>
-                <p className="text-sm font-medium text-muted-foreground line-clamp-1">
+                <p className="text-sm font-semibold text-foreground line-clamp-2 min-h-[2.5rem]">
                   {a.title}
                 </p>
-                <div className="mt-2 flex items-baseline gap-1">
-                  <span className="text-4xl font-bold text-foreground">{a.score}</span>
-                  <span className="text-base text-muted-foreground font-medium">/100</span>
+                <div className="mt-1 flex items-baseline gap-1">
+                  <span className="text-3xl font-bold text-foreground">{a.score.toFixed(2)}</span>
+                  <span className="text-sm text-muted-foreground font-medium">/100</span>
                 </div>
-                <div className="mt-3 h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                <div className="mt-2 h-1.5 w-full bg-muted rounded-full overflow-hidden">
                   <div
                     className={`h-full ${a.gradient} rounded-full transition-all duration-1000`}
                     style={{ width: `${a.score}%` }}
                   />
                 </div>
+
+                {a.subs.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-border space-y-1.5">
+                    {a.subs.map((s, i) => (
+                      <div key={i} className="flex items-center justify-between gap-2">
+                        <span className="text-[11px] text-muted-foreground font-medium leading-tight">
+                          {s.label}
+                        </span>
+                        <span className={`text-xs font-bold ${a.accent}`}>
+                          {s.value.toFixed(2)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </Card>
           );
         })}
 
         {/* Average score card */}
-        <Card className="relative overflow-hidden gradient-score border-0 shadow-elegant text-primary-foreground">
+        <Card className="relative overflow-hidden gradient-score border-0 shadow-elegant text-white">
           <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-primary-foreground blur-3xl animate-float" />
+            <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-white blur-3xl animate-float" />
           </div>
-          <div className="relative p-5">
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-foreground/20 backdrop-blur-sm">
-                <Award className="h-5 w-5 text-primary-foreground" />
+          <div className="relative p-5 flex flex-col h-full">
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/25 backdrop-blur-sm ring-1 ring-white/40">
+                <Award className="h-5 w-5 text-white" strokeWidth={2.4} />
               </div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-primary-foreground/80">
-                Rata-rata
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-white/25 text-white">
+                Baik
               </span>
             </div>
-            <p className="text-sm font-medium text-primary-foreground/90">Skor Keseluruhan</p>
-            <div className="mt-2 flex items-baseline gap-1">
-              <span className="text-4xl font-bold">{average}</span>
-              <span className="text-base text-primary-foreground/80 font-medium">/100</span>
+            <p className="text-sm font-semibold text-white/95">Rata-rata Skor Keseluruhan</p>
+            <div className="mt-1 flex items-baseline gap-1">
+              <span className="text-3xl font-bold">{average}</span>
+              <span className="text-sm text-white/85 font-medium">/100</span>
             </div>
-            <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/20 backdrop-blur-sm px-3 py-1">
-              <div className="h-1.5 w-1.5 rounded-full bg-primary-foreground animate-pulse" />
-              <span className="text-xs font-semibold">SANGAT BAIK</span>
+            <div className="mt-2 h-1.5 w-full bg-white/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-white rounded-full transition-all duration-1000"
+                style={{ width: `${average}%` }}
+              />
+            </div>
+            <div className="mt-auto pt-3 inline-flex items-center gap-1.5 rounded-full bg-white/20 backdrop-blur-sm px-3 py-1 self-start">
+              <div className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+              <span className="text-[10px] font-bold tracking-wider">SANGAT TERPELIHARA</span>
             </div>
           </div>
         </Card>
