@@ -37,13 +37,23 @@ const dams = [
 const Instrumen = () => {
   const [selectedId, setSelectedId] = useState(instrumentList[0].id);
   const [dam, setDam] = useState("utama");
-  const [date, setDate] = useState<Date>(new Date());
+  const [dateRange, setDateRange] = useState<DateRange>({
+    from: new Date(new Date().setDate(new Date().getDate() - 30)),
+    to: new Date(),
+  });
 
   const instrument = instrumentList.find((i) => i.id === selectedId)!;
+  const rawData = useMemo(() => {
+    const seed = (instrument.id.length + dam.length) | 0;
+    return generateSeries(instrument.base, 365, seed);
+  }, [instrument, dam]);
+
   const data = useMemo(() => {
-    const seed = (instrument.id.length + dam.length + date.getDate()) | 0;
-    return generateSeries(instrument.base, 60, seed);
-  }, [instrument, dam, date]);
+    if (!dateRange.from) return rawData;
+    const fromStr = format(dateRange.from, "yyyy-MM-dd");
+    const toStr = dateRange.to ? format(dateRange.to, "yyyy-MM-dd") : fromStr;
+    return rawData.filter((d) => d.date >= fromStr && d.date <= toStr);
+  }, [rawData, dateRange]);
 
   return (
     <main className="min-h-screen bg-background">
