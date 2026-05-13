@@ -92,8 +92,8 @@ const Instrumen = () => {
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
                 <h2 className="text-xl font-bold text-foreground">{instrument.label}</h2>
-                <p className="text-sm text-muted-foreground">
-                  Satuan: {instrument.unit} · 60 hari terakhir
+              <p className="text-sm text-muted-foreground">
+                  Satuan: {instrument.unit} · Rentang data sesuai pilihan tanggal
                 </p>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
