@@ -11,8 +11,6 @@ import {
   ResponsiveContainer,
   Brush,
 } from "recharts";
-import type { DateRange } from "react-day-picker";
-
 import { TopNav } from "@/components/layout/TopNav";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,7 +35,7 @@ const dams = [
 const Instrumen = () => {
   const [selectedId, setSelectedId] = useState(instrumentList[0].id);
   const [dam, setDam] = useState("utama");
-  const [dateRange, setDateRange] = useState<DateRange>({
+  const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({
     from: new Date(new Date().setDate(new Date().getDate() - 30)),
     to: new Date(),
   });
