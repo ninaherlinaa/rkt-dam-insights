@@ -134,7 +134,7 @@ const Instrumen = () => {
                     <Calendar
                       mode="range"
                       selected={dateRange}
-                      onSelect={(range) => setDateRange(range ?? { from: undefined, to: undefined })}
+                      onSelect={(range) => setDateRange(range)}
                       numberOfMonths={2}
                       initialFocus
                       className={cn("p-3 pointer-events-auto")}
