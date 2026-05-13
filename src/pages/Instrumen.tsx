@@ -181,6 +181,13 @@ const Instrumen = () => {
                     dot={false}
                     activeDot={{ r: 5 }}
                   />
+                  <Brush
+                    dataKey="date"
+                    height={30}
+                    stroke="hsl(var(--primary))"
+                    tickFormatter={(d) => format(new Date(d), "dd/MM")}
+                    travellerWidth={8}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </div>
