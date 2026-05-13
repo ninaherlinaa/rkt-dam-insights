@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { format } from "date-fns";
-import { CalendarIcon, ZoomIn } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -11,6 +11,8 @@ import {
   ResponsiveContainer,
   Brush,
 } from "recharts";
+import type { DateRange } from "react-day-picker";
+
 import { TopNav } from "@/components/layout/TopNav";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
