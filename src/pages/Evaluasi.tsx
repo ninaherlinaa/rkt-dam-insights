@@ -1,3 +1,4 @@
+import { TopNav } from "@/components/layout/TopNav";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { ScoreCards } from "@/components/dashboard/ScoreCards";
 import { PhysicalAspect } from "@/components/dashboard/PhysicalAspect";
@@ -5,9 +6,10 @@ import { OperationalAspect } from "@/components/dashboard/OperationalAspect";
 import { InstrumentationAspect } from "@/components/dashboard/InstrumentationAspect";
 import { InstitutionalAspect } from "@/components/dashboard/InstitutionalAspect";
 
-const Index = () => {
+const Evaluasi = () => {
   return (
     <main className="min-h-screen bg-background">
+      <TopNav />
       <DashboardHeader />
       <ScoreCards />
       <PhysicalAspect />
@@ -24,4 +26,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Evaluasi;
