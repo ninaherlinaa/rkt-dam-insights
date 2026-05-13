@@ -32,12 +32,16 @@ const dams = [
   { id: "sadel-2", label: "Sadel 2" },
 ];
 
+const today = new Date();
+const thirtyDaysAgo = new Date();
+thirtyDaysAgo.setDate(today.getDate() - 30);
+
 const Instrumen = () => {
   const [selectedId, setSelectedId] = useState(instrumentList[0].id);
   const [dam, setDam] = useState("utama");
-  const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({
-    from: new Date(new Date().setDate(new Date().getDate() - 30)),
-    to: new Date(),
+  const [dateRange, setDateRange] = useState<{ from: Date; to: Date } | undefined>({
+    from: thirtyDaysAgo,
+    to: today,
   });
 
   const instrument = instrumentList.find((i) => i.id === selectedId)!;
