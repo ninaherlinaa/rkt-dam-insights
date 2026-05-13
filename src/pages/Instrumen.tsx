@@ -111,16 +111,27 @@ const Instrumen = () => {
                 </Select>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-[200px] justify-start text-left font-normal">
+                    <Button variant="outline" className="w-[240px] justify-start text-left font-normal">
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {format(date, "dd MMM yyyy")}
+                      {dateRange.from ? (
+                        dateRange.to ? (
+                          <>
+                            {format(dateRange.from, "dd MMM yyyy")} - {format(dateRange.to, "dd MMM yyyy")}
+                          </>
+                        ) : (
+                          format(dateRange.from, "dd MMM yyyy")
+                        )
+                      ) : (
+                        <span>Pilih rentang tanggal</span>
+                      )}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="end">
                     <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={(d) => d && setDate(d)}
+                      mode="range"
+                      selected={dateRange}
+                      onSelect={(range) => setDateRange(range || {})}
+                      numberOfMonths={2}
                       initialFocus
                       className={cn("p-3 pointer-events-auto")}
                     />
