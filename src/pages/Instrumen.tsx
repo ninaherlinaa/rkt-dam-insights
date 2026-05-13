@@ -9,7 +9,9 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
+  Brush,
 } from "recharts";
+import type { DateRange } from "react-day-picker";
 
 import { TopNav } from "@/components/layout/TopNav";
 import { Card } from "@/components/ui/card";
@@ -32,16 +34,30 @@ const dams = [
   { id: "sadel-2", label: "Sadel 2" },
 ];
 
+const today = new Date();
+const thirtyDaysAgo = new Date();
+thirtyDaysAgo.setDate(today.getDate() - 30);
+
 const Instrumen = () => {
   const [selectedId, setSelectedId] = useState(instrumentList[0].id);
   const [dam, setDam] = useState("utama");
-  const [date, setDate] = useState<Date>(new Date());
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: thirtyDaysAgo,
+    to: today,
+  });
 
   const instrument = instrumentList.find((i) => i.id === selectedId)!;
+  const rawData = useMemo(() => {
+    const seed = (instrument.id.length + dam.length) | 0;
+    return generateSeries(instrument.base, 365, seed);
+  }, [instrument, dam]);
+
   const data = useMemo(() => {
-    const seed = (instrument.id.length + dam.length + date.getDate()) | 0;
-    return generateSeries(instrument.base, 60, seed);
-  }, [instrument, dam, date]);
+    if (!dateRange.from) return rawData;
+    const fromStr = format(dateRange.from, "yyyy-MM-dd");
+    const toStr = dateRange.to ? format(dateRange.to, "yyyy-MM-dd") : fromStr;
+    return rawData.filter((d) => d.date >= fromStr && d.date <= toStr);
+  }, [rawData, dateRange]);
 
   return (
     <main className="min-h-screen bg-background">
@@ -80,8 +96,8 @@ const Instrumen = () => {
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
                 <h2 className="text-xl font-bold text-foreground">{instrument.label}</h2>
-                <p className="text-sm text-muted-foreground">
-                  Satuan: {instrument.unit} · 60 hari terakhir
+              <p className="text-sm text-muted-foreground">
+                  Satuan: {instrument.unit} · Rentang data sesuai pilihan tanggal
                 </p>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
@@ -99,16 +115,27 @@ const Instrumen = () => {
                 </Select>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-[200px] justify-start text-left font-normal">
+                    <Button variant="outline" className="w-[240px] justify-start text-left font-normal">
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {format(date, "dd MMM yyyy")}
+                      {dateRange.from ? (
+                        dateRange.to ? (
+                          <>
+                            {format(dateRange.from, "dd MMM yyyy")} - {format(dateRange.to, "dd MMM yyyy")}
+                          </>
+                        ) : (
+                          format(dateRange.from, "dd MMM yyyy")
+                        )
+                      ) : (
+                        <span>Pilih rentang tanggal</span>
+                      )}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="end">
                     <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={(d) => d && setDate(d)}
+                      mode="range"
+                      selected={dateRange}
+                      onSelect={(range) => setDateRange(range)}
+                      numberOfMonths={2}
                       initialFocus
                       className={cn("p-3 pointer-events-auto")}
                     />
@@ -119,7 +146,7 @@ const Instrumen = () => {
 
             <div className="h-[420px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 30 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis
                     dataKey="date"
@@ -153,6 +180,14 @@ const Instrumen = () => {
                     strokeWidth={2}
                     dot={false}
                     activeDot={{ r: 5 }}
+                  />
+                  <Brush
+                    dataKey="date"
+                    height={40}
+                    stroke="hsl(var(--primary))"
+                    fill="hsl(var(--muted))"
+                    tickFormatter={(d) => format(new Date(d), "dd/MM")}
+                    travellerWidth={10}
                   />
                 </LineChart>
               </ResponsiveContainer>
