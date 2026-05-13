@@ -41,7 +41,7 @@ thirtyDaysAgo.setDate(today.getDate() - 30);
 const Instrumen = () => {
   const [selectedId, setSelectedId] = useState(instrumentList[0].id);
   const [dam, setDam] = useState("utama");
-  const [dateRange, setDateRange] = useState<{ from: Date; to: Date } | undefined>({
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: thirtyDaysAgo,
     to: today,
   });
