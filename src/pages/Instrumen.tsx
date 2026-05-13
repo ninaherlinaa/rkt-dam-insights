@@ -183,10 +183,11 @@ const Instrumen = () => {
                   />
                   <Brush
                     dataKey="date"
-                    height={30}
+                    height={40}
                     stroke="hsl(var(--primary))"
+                    fill="hsl(var(--muted))"
                     tickFormatter={(d) => format(new Date(d), "dd/MM")}
-                    travellerWidth={8}
+                    travellerWidth={10}
                   />
                 </LineChart>
               </ResponsiveContainer>
